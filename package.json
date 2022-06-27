@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/wesleyblackburn90/Solo-project/issues"
   },
-  "homepage": "https://github.com/wesleyblackburn90/Solo-project#readme"
+  "homepage": "https://github.com/wesleyblackburn90/Solo-project#readme",
+  "dependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
 }
