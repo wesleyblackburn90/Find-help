@@ -3,7 +3,7 @@ const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define('Users', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -49,6 +49,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function (models) {
     // associations can be defined here
+    User.hasMany(models.Business, { foreignKey: "userId" });
+    User.hasMany(models.Reviews, { foreignKey: "userId" })
   };
 
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function
