@@ -13,6 +13,21 @@ router.get("/", asyncHandler(async (req, res) => {
   res.json(businesses)
 }))
 
+router.get("/", asyncHandler(async (req, res) => {
+  const { businessName, description, picture, address, city, state, zipCode } = req.body;
+  const business = await Business.create({
+    ownerId: req.session.auth.userId,
+    businessName,
+    description,
+    picture,
+    address,
+    city,
+    state,
+    zipCode
+  })
+  res.json(business)
+}))
+
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const businessId = parseInt(req.params.id, 10)
   const business = await Business.findByPk(businessId, { include: Review })

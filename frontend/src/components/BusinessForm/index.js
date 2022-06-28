@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from "react"
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createBusinesses } from "../../store/business";
 
@@ -15,7 +15,7 @@ const BusinessForm = ({ hideForm }) => {
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [state, setstate] = useState("")
-  const [zipcode, setZipcode] = useState(00000)
+  const [zipcode, setZipcode] = useState(0)
 
   const updateOwnerId = (e) => setOwnerId(e.target.value)
   const updateBusinessName = (e) => setBusinessName(e.target.value)
@@ -41,16 +41,74 @@ const BusinessForm = ({ hideForm }) => {
     }
 
     let createdBusiness
-    try{
+    try {
       createdBusiness = await dispatch(createBusinesses(payload))
     } catch (err) {
       console.log(err)
     }
 
-    if(createdBusiness){
+    if (createdBusiness) {
       history.push(`/business/${createdBusiness.id}`)
       hideForm();
     }
-
   }
+
+  const handleCancelClick = (e) => {
+    e.preventDefault()
+    hideForm()
+  }
+
+  return (
+    <section className="new-business-form">
+      <form className="business-form" onSubmit={handleSubmit}>
+        <input
+          type="number"
+          placeholder="ownerId"
+          required
+          value={ownerId}
+          onChange={updateOwnerId} />
+        <input
+          type="text"
+          placeholder="BusinessName"
+          required
+          value={businessName}
+          onChange={updateBusinessName} />
+        <input
+          type="text"
+          placeholder="description"
+          value={description}
+          onChange={updateDescription} />
+        <input
+          type="text"
+          placeholder="imageUrl"
+          value={picture}
+          onChange={updatePicture} />
+        <input
+          type="text"
+          placeholder="address"
+          value={address}
+          onChange={updateAddress} />
+        <input
+          type="text"
+          placeholder="city"
+          value={city}
+          onChange={updateCity} />
+        <input
+          type="text"
+          placeholder="state"
+          value={state}
+          onChange={updateState} />
+        <input
+          type="number"
+          placeholder="zipcode"
+          value={zipcode}
+          onChange={updateZipcode} />
+        <button type="submit">Add a business</button>
+        <button type="button" onClick={handleCancelClick}>Cancel</button>
+      </form>
+
+    </section>
+  )
 }
+
+export default BusinessForm
