@@ -19,7 +19,7 @@ function BusinessList() {
         {businessList?.map(({ id, businessName, picture, description }) => (
           <div className="businessCard">
             <p className="businessName" key={id}>{businessName}</p>
-            <img className="businessPic" src={picture}></img>
+            <img alt="A building" className="businessPic" src={picture}></img>
             <p className="businessDescription">{description}</p>
           </div>
         ))}

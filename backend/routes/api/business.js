@@ -20,4 +20,8 @@ router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   res.json(business)
 }))
 
+router.post("/:id(\\d+)", asyncHandler(async (req, res) => {
+
+}))
+
 module.exports = router

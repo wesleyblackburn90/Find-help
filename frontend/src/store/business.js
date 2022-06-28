@@ -1,7 +1,7 @@
 const GET_ALL_BUSINESSES = '/business/getAllBusinesses'
 const CREATE_BUSINESS = '/business/createBusiness'
-const UPDATE_BUSINESS = '/business/updateBusiness'
-const DELETE_BUSINESS = '/business/deleteBusiness'
+// const UPDATE_BUSINESS = '/business/updateBusiness'
+// const DELETE_BUSINESS = '/business/deleteBusiness'
 
 //action creator
 const getBusinesses = (businesses) => {
@@ -16,18 +16,18 @@ const createBusiness = (businesses) => {
     businesses
   }
 }
-const updateBusiness = (businesses) => {
-  return {
-    type: UPDATE_BUSINESS,
-    businesses
-  }
-}
-const deleteBusiness = (businesses) => {
-  return {
-    type: DELETE_BUSINESS,
-    businesses
-  }
-}
+// const updateBusiness = (businesses) => {
+//   return {
+//     type: UPDATE_BUSINESS,
+//     businesses
+//   }
+// }
+// const deleteBusiness = (businesses) => {
+//   return {
+//     type: DELETE_BUSINESS,
+//     businesses
+//   }
+// }
 
 //thunk action creator
 export const getAllBusinesses = () => async (dispatch) => {
@@ -40,8 +40,18 @@ export const getAllBusinesses = () => async (dispatch) => {
   }
 }
 
-export const createBusinesses = () => async (dispatch) => {
-  const response = await fetch("/api/business")
+export const createBusinesses = (data) => async (dispatch) => {
+  const response = await fetch("/api/business", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+
+  const business = await response.json()
+  dispatch(createBusiness(business))
+  return business
 }
 
 //state object
@@ -51,9 +61,16 @@ const initialState = {}
 const businessReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_BUSINESSES: {
-      const newState = {};
-      action.businesses.forEach((business) => (newState[business.id] = business));
-      return newState;
+      const allBusinesses = {};
+      action.businesses.forEach((business) => (allBusinesses[business.id] = business));
+      return allBusinesses;
+    }
+    case CREATE_BUSINESS: {
+      const newState = {
+        ...state,
+        [action.business.id]: action.business
+      };
+      return newState
     }
     default:
       return state;
