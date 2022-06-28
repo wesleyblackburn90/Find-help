@@ -13,11 +13,11 @@ router.get("/", asyncHandler(async (req, res) => {
   res.json(businesses)
 }))
 
-// router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
-//   const businessId = parseInt(req.params.id, 10)
-//   const business = await Business.findByPk(businessId, { include: Review })
+router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const businessId = parseInt(req.params.id, 10)
+  const business = await Business.findByPk(businessId, { include: Review })
 
-//   res.json(business)
-// }))
+  res.json(business)
+}))
 
 module.exports = router

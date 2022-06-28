@@ -7,7 +7,6 @@ import './BusinessList.css';
 function BusinessList() {
   const dispatch = useDispatch();
   const businessList = useSelector((state) => Object.values(state.business))
-  console.log(businessList)
 
   useEffect(() => {
     dispatch(getAllBusinesses())
@@ -16,7 +15,7 @@ function BusinessList() {
   return (
     <>
       <h1>Business List Hopefully</h1>
-      {businessList?.map(({ id, businessName }) => (
+      {businessList?.map(({ id, businessName, }) => (
         <p key={id}>{businessName}</p>
       ))}
     </>
