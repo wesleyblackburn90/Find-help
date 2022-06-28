@@ -14,10 +14,16 @@ function BusinessList() {
 
   return (
     <>
-      <h1>Business List Hopefully</h1>
-      {businessList?.map(({ id, businessName, }) => (
-        <p key={id}>{businessName}</p>
-      ))}
+      <h1>Businesses for you</h1>
+      <div className="businesses">
+        {businessList?.map(({ id, businessName, picture, description }) => (
+          <div className="businessCard">
+            <p className="businessName" key={id}>{businessName}</p>
+            <img className="businessPic" src={picture}></img>
+            <p className="businessDescription">{description}</p>
+          </div>
+        ))}
+      </div>
     </>
   )
 }

@@ -1,0 +1,13 @@
+.businessCard {
+  width: 33%;
+  height: auto;
+}
+
+.businessPic {
+  height: auto;
+  width: 33%;
+}
+
+.businesses {
+  display: flex;
+}
