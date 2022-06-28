@@ -25,9 +25,12 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/business">
+          <Route exact path="/business">
             <BusinessList />
           </Route>
+          {/* <Route path="/business/:businessId">
+            <IndividualBusiness />
+          </Route> */}
         </Switch>
       )}
     </>
