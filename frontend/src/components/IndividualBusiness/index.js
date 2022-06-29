@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import { getAllBusinesses } from "../../store/business";
+import { getAllBusinesses, deleteBusinesses } from "../../store/business";
 import './IndividualBusiness.css';
 
 function Business() {
@@ -23,6 +23,7 @@ function Business() {
         <>
           <h1>{business.businessName}</h1>
           <img alt="health facility" src={business.picture}></img>
+          <button onClick={() => dispatch(deleteBusinesses(business))}>Delete business</button>
         </>
         : null
       }
