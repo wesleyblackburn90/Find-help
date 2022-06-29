@@ -43,7 +43,7 @@ router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
   const business = await Business.findByPk(req.params.id)
   if (business) {
     await business.destroy()
-    res.status(200).json({ message: "Deleted" })
+    res.status(200).json(business)
   }
 }))
 

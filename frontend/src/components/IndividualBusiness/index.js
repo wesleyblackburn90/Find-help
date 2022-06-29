@@ -8,8 +8,6 @@ import './IndividualBusiness.css';
 function Business() {
   const dispatch = useDispatch();
   const { businessId } = useParams()
-  console.log(".........")
-  console.log(businessId)
   const businesses = useSelector((state) => Object.values(state.business))
   const business = businesses[businessId]
 
@@ -23,7 +21,7 @@ function Business() {
         <>
           <h1>{business.businessName}</h1>
           <img alt="health facility" src={business.picture}></img>
-          <button onClick={() => dispatch(deleteBusinesses(business))}>Delete business</button>
+          <button onClick={() => dispatch(deleteBusinesses(business.id))}>Delete business</button>
         </>
         : null
       }
