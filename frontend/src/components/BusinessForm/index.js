@@ -50,7 +50,7 @@ const BusinessForm = ({ hideForm }) => {
     const createdBusiness = await dispatch(createBusinesses(payload))
 
     if (createdBusiness) {
-      history.push(`/business/${createdBusiness.id}`)
+      history.push("/business")
       hideForm();
     }
   }

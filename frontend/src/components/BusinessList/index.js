@@ -17,10 +17,10 @@ function BusinessList() {
       <h1>Businesses for you</h1>
       <div className="businesses">
         {businessList?.map(({ id, businessName, picture, description }) => (
-          <div className="businessCard">
+          <div key={id} className="businessCard">
             <p className="businessName" key={id}>{businessName}</p>
-            <img alt="A building" className="businessPic" src={picture}></img>
-            <p className="businessDescription">{description}</p>
+            <img key={id} alt="A building" className="businessPic" src={picture}></img>
+            <p key={id} className="businessDescription">{description}</p>
           </div>
         ))}
       </div>

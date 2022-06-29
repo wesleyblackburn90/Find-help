@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 const GET_ALL_BUSINESSES = '/business/getAllBusinesses'
 const CREATE_BUSINESS = '/business/createBusiness'
 // const UPDATE_BUSINESS = '/business/updateBusiness'
@@ -31,7 +33,7 @@ const createBusiness = (businesses) => {
 
 //thunk action creator
 export const getAllBusinesses = () => async (dispatch) => {
-  const response = await fetch("/api/business")
+  const response = await csrfFetch("/api/business")
 
   if (response.ok) {
     const data = await response.json()
@@ -41,16 +43,18 @@ export const getAllBusinesses = () => async (dispatch) => {
 }
 
 export const createBusinesses = (data) => async (dispatch) => {
-  const response = await fetch("/api/business", {
+  const response = await csrfFetch("/api/business", {
     method: "post",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
   })
+  // console.log(response)
 
   const business = await response.json()
   dispatch(createBusiness(business))
+
   return business
 }
 
@@ -63,13 +67,12 @@ const businessReducer = (state = initialState, action) => {
     case GET_ALL_BUSINESSES: {
       const allBusinesses = {};
       action.businesses.forEach((business) => (allBusinesses[business.id] = business));
-      return allBusinesses;
+      return { ...allBusinesses };
     }
     case CREATE_BUSINESS: {
-      console.log(action.business)
       const newState = {
         ...state,
-        [action.business.id]: action.business
+        [action.businesses.id]: action.businesses
       };
       return newState
     }
