@@ -13,7 +13,7 @@ router.get("/", asyncHandler(async (req, res) => {
   res.json(businesses)
 }))
 
-router.get("/", asyncHandler(async (req, res) => {
+router.post("/", asyncHandler(async (req, res) => {
   const { businessName, description, picture, address, city, state, zipCode } = req.body;
   const business = await Business.create({
     ownerId: req.session.auth.userId,

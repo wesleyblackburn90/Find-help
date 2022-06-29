@@ -66,6 +66,7 @@ const businessReducer = (state = initialState, action) => {
       return allBusinesses;
     }
     case CREATE_BUSINESS: {
+      console.log(action.business)
       const newState = {
         ...state,
         [action.business.id]: action.business

@@ -40,12 +40,14 @@ const BusinessForm = ({ hideForm }) => {
       zipcode
     }
 
-    let createdBusiness
-    try {
-      createdBusiness = await dispatch(createBusinesses(payload))
-    } catch (err) {
-      console.log(err)
-    }
+    // let createdBusiness
+    // try {
+    //   createdBusiness = await dispatch(createBusinesses(payload))
+    // } catch (err) {
+    //   console.log(err)
+    // }
+
+    const createdBusiness = await dispatch(createBusinesses(payload))
 
     if (createdBusiness) {
       history.push(`/business/${createdBusiness.id}`)
