@@ -50,11 +50,9 @@ export const createBusinesses = (data) => async (dispatch) => {
     },
     body: JSON.stringify(data)
   })
-  // console.log(response)
 
   const business = await response.json()
   dispatch(createBusiness(business))
-
   return business
 }
 
