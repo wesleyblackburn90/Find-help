@@ -1,30 +1,39 @@
 import React from "react";
 import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getAllBusinesses, deleteBusinesses } from "../../store/business";
+import EditBusinessForm from "../EditBusinessForm";
 import Review from "../Review/review"
 import './IndividualBusiness.css';
 
-function Business() {
+function IndividualBusiness() {
+  const history = useHistory()
   const dispatch = useDispatch();
   const { businessId } = useParams()
-  const businesses = useSelector((state) => Object.values(state.business))
-  const business = businesses[businessId]
+  const business = useSelector((state) => (state.business[businessId]))
+
 
   useEffect(() => {
     dispatch(getAllBusinesses())
   }, [dispatch])
 
+  function handleDelete() {
+    dispatch(deleteBusinesses(business.id))
+    history.push('/business')
+  }
+
+
   return (
     <>
-      {(business && businesses) ?
+      {(business) ?
         <>
           <h1>{business.businessName}</h1>
           <img alt="health facility" src={business.picture}></img>
           <p>{business.description}</p>
           {/* <Review /> */}
-          <button onClick={() => dispatch(deleteBusinesses(business.id))}>Delete business</button>
+          <EditBusinessForm business={business} />
+          <button onClick={handleDelete}>Delete business</button>
         </>
         : null
       }
@@ -32,4 +41,4 @@ function Business() {
   )
 }
 
-export default Business;
+export default IndividualBusiness;

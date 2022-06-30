@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf"
 
 const GET_ALL_BUSINESSES = '/business/getAllBusinesses'
 const CREATE_BUSINESS = '/business/createBusiness'
-// const UPDATE_BUSINESS = '/business/updateBusiness'
+const UPDATE_BUSINESS = '/business/updateBusiness'
 const DELETE_BUSINESS = '/business/deleteBusiness'
 
 //action creator
@@ -18,12 +18,12 @@ const createBusiness = (businesses) => {
     businesses
   }
 }
-// const updateBusiness = (businesses) => {
-//   return {
-//     type: UPDATE_BUSINESS,
-//     businesses
-//   }
-// }
+const updateBusiness = (businesses) => {
+  return {
+    type: UPDATE_BUSINESS,
+    businesses
+  }
+}
 const deleteBusiness = (business) => {
   return {
     type: DELETE_BUSINESS,
@@ -56,6 +56,24 @@ export const createBusinesses = (data) => async (dispatch) => {
   return business
 }
 
+export const editBusiness = data => async (dispatch) => {
+  const response = await csrfFetch(`/api/business/${data.id}`, {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  if (response.ok) {
+    const business = await response.json()
+    dispatch(updateBusiness(business))
+    // console.log('business')
+    // console.log(business)
+    return business
+  }
+}
+
 export const deleteBusinesses = (businessId) => async (dispatch) => {
   const response = await csrfFetch(`/api/business/${businessId}`, {
     method: 'delete',
@@ -77,18 +95,23 @@ const businessReducer = (state = initialState, action) => {
     case GET_ALL_BUSINESSES: {
       const allBusinesses = {};
       action.businesses.forEach((business) => (allBusinesses[business.id] = business));
-      return { ...allBusinesses };
+      return allBusinesses
     }
     case CREATE_BUSINESS: {
       const newState = {
         ...state,
         [action.businesses.id]: action.businesses
       };
-      return newState
+      return { ...newState }
     }
+    case UPDATE_BUSINESS:
+      return {
+        ...state,
+        [action.businesses.id]: action.businesses
+      }
     case DELETE_BUSINESS: {
       const newState = { ...state }
-      delete newState[action.business]
+      delete newState[action.businessId]
       return newState
     }
     default:

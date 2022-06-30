@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react"
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import { createBusinesses } from "../../store/business";
+import { useDispatch } from 'react-redux';
+import { editBusiness, getAllBusinesses } from "../../store/business";
 
 
-const BusinessForm = ({ hideForm }) => {
+const EditBusinessForm = ({ business }) => {
+  console.log(business)
   const dispatch = useDispatch()
-  const history = useHistory()
-  const userId = useSelector((state) => state.session.user.id)
-
-  const [businessName, setBusinessName] = useState("")
-  const [description, setDescription] = useState("")
-  const [picture, setPicture] = useState("")
-  const [address, setAddress] = useState("")
-  const [city, setCity] = useState("")
-  const [state, setstate] = useState("")
-  const [zipcode, setZipcode] = useState(0)
+  const [businessName, setBusinessName] = useState(business.businessName)
+  const [description, setDescription] = useState(business.description)
+  const [picture, setPicture] = useState(business.picture)
+  const [address, setAddress] = useState(business.address)
+  const [city, setCity] = useState(business.city)
+  const [state, setstate] = useState(business.state)
+  const [zipcode, setZipcode] = useState(business.zipcode)
 
   const updateBusinessName = (e) => setBusinessName(e.target.value)
   const updateDescription = (e) => setDescription(e.target.value)
@@ -26,11 +23,15 @@ const BusinessForm = ({ hideForm }) => {
   const updateState = (e) => setstate(e.target.value)
   const updateZipcode = (e) => setZipcode(e.target.value)
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    dispatch(getAllBusinesses())
+  }, [dispatch])
+
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const payload = {
-      ownerId: userId,
+      ...business,
       businessName,
       description,
       picture,
@@ -39,6 +40,7 @@ const BusinessForm = ({ hideForm }) => {
       state,
       zipcode
     }
+    console.log(payload, "<=====")
 
     // let createdBusiness
     // try {
@@ -47,21 +49,16 @@ const BusinessForm = ({ hideForm }) => {
     //   console.log(err)
     // }
 
-    const createdBusiness = await dispatch(createBusinesses(payload))
-
-    if (createdBusiness) {
-      history.push("/business")
-      hideForm();
-    }
+    dispatch(editBusiness(payload))
   }
 
   const handleCancelClick = (e) => {
     e.preventDefault()
-    hideForm()
+    // hideForm()
   }
 
   return (
-    <section className="new-business-form">
+    <section className="edit-business-form">
       <form className="business-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -99,12 +96,12 @@ const BusinessForm = ({ hideForm }) => {
           placeholder="zipcode"
           value={zipcode}
           onChange={updateZipcode} />
-        <button type="submit">Add a business</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
+        <button type="submit">Update your business</button>
+        {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
 
     </section>
   )
 }
 
-export default BusinessForm
+export default EditBusinessForm

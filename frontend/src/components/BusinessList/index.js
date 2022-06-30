@@ -19,7 +19,7 @@ function BusinessList() {
       <div className="businesses">
         {businessList?.map(({ id, businessName, picture, description }) => (
           <div key={id} className="businessCard">
-            <NavLink to={`/business/${id - 1}`} className="businessName" key={id}>{businessName}</NavLink>
+            <NavLink to={`/business/${id}`} className="businessName" key={id}>{businessName}</NavLink>
             <img key={id} alt="A building" className="businessPic" src={picture}></img>
             <p key={id} className="businessDescription">{description}</p>
           </div>

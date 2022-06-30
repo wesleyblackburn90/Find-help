@@ -14,9 +14,9 @@ router.get("/", asyncHandler(async (req, res) => {
 }))
 
 router.post("/", asyncHandler(async (req, res) => {
-  const { businessName, description, picture, address, city, state, zipCode } = req.body;
+  const { ownerId, businessName, description, picture, address, city, state, zipCode } = req.body;
   const business = await Business.create({
-    ownerId: 1,
+    ownerId,
     businessName,
     description,
     picture,
@@ -30,21 +30,36 @@ router.post("/", asyncHandler(async (req, res) => {
 
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const businessId = parseInt(req.params.id, 10)
+  const reviews = Review.findAll({
+    where: {
+      businessId: businessId
+    }
+  })
   const business = await Business.findByPk(businessId, { include: Review })
 
-  res.json(business)
+  res.json(business, reviews)
 }))
 
-router.post("/:id(\\d+)", asyncHandler(async (req, res) => {
-  const reviewId = parseInt(req.params.id, 10)
-  const { userId, businessId, rating, review } = req.body
-  const reviews = await Business.create({
-    userId,
-    businessId,
-    rating,
-    review
-  })
-  res.json(reviews)
+router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const business = await Business.findByPk(req.params.id)
+  business.businessName = req.body.businessName
+  business.description = req.body.description
+  business.picture = req.body.picture
+  business.address = req.body.address
+  business.city = req.body.city
+  business.state = req.body.state
+  business.zipCode = req.body.zipCode
+  await business.save()
+
+  // const businessId = parseInt(req.params.id, 10)
+  // const { userId, businessId, rating, review } = req.body
+  // const reviews = await Business.create({
+  //   userId,
+  //   businessId,
+  //   rating,
+  //   review
+  // })
+  res.json(business)
 }))
 
 router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
