@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from "react-router-dom";
 import { getAllBusinesses, deleteBusinesses } from "../../store/business";
 import EditBusinessForm from "../EditBusinessForm";
-import Review from "../Review/review"
+import Review from "../Review"
 import './IndividualBusiness.css';
 
 function IndividualBusiness() {
@@ -31,7 +31,7 @@ function IndividualBusiness() {
           <h1>{business.businessName}</h1>
           <img alt="health facility" src={business.picture}></img>
           <p>{business.description}</p>
-          {/* <Review /> */}
+          <Review />
           <EditBusinessForm business={business} />
           <button onClick={handleDelete}>Delete business</button>
         </>

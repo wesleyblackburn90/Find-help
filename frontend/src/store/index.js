@@ -4,12 +4,14 @@ import thunk from "redux-thunk";
 import * as sessionActions from './session';
 import sessionReducer from "./session";
 import businessReducer from "./business";
+import reviewReducer from "./review";
 
 
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
-  business: businessReducer
+  business: businessReducer,
+  review: reviewReducer
 });
 
 let enhancer;

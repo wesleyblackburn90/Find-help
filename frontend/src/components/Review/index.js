@@ -9,6 +9,7 @@ function Review() {
   const dispatch = useDispatch()
   // const { businessId, userId } = useParams()
   const reviews = useSelector((state) => Object.values(state.review))
+  // console.log(reviews, "<==== reviews")
   // // const review = reviews[reviewId]
   // console.log(".....")
   // // console.log(reviewId)

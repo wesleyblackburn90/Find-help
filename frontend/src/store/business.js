@@ -64,12 +64,12 @@ export const editBusiness = data => async (dispatch) => {
     },
     body: JSON.stringify(data)
   })
+  // console.log(data, "<=== data")
+  // console.log(response, "<=== response")
 
   if (response.ok) {
     const business = await response.json()
     dispatch(updateBusiness(business))
-    // console.log('business')
-    // console.log(business)
     return business
   }
 }

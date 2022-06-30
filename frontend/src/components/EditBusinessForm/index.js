@@ -5,7 +5,6 @@ import { editBusiness, getAllBusinesses } from "../../store/business";
 
 
 const EditBusinessForm = ({ business }) => {
-  console.log(business)
   const dispatch = useDispatch()
   const [businessName, setBusinessName] = useState(business.businessName)
   const [description, setDescription] = useState(business.description)
@@ -40,7 +39,6 @@ const EditBusinessForm = ({ business }) => {
       state,
       zipcode
     }
-    console.log(payload, "<=====")
 
     // let createdBusiness
     // try {

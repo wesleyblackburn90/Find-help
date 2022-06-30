@@ -32,11 +32,12 @@ const getReview = (reviews) => {
 // }
 
 //thunk action creator
-export const getAllReviews = () => async (dispatch) => {
+export const getAllReviews = data => async (dispatch) => {
   const response = await csrfFetch(`/api/business`)
 
   if (response.ok) {
     const data = await response.json()
+    console.log(data[0].Reviews[0].review)
     dispatch(getReview(data))
     return data
   }
@@ -77,7 +78,7 @@ const reviewReducer = (state = initialState, action) => {
     case GET_ALL_REVIEWS: {
       const allReviews = {};
       action.reviews.forEach((review) => (allReviews[review.id] = review));
-      return { ...allReviews };
+      return allReviews
     }
     // case CREATE_BUSINESS: {
     //   const newState = {

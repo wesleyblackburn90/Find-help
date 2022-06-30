@@ -9,9 +9,14 @@ const router = express.Router();
 // const { handleValidationErrors } = require('../../utils/validation');
 
 router.get("/", asyncHandler(async (req, res) => {
-  const businesses = await Business.findAll()
+  const businesses = await Business.findAll({ include: Review })
+  console.log(businesses)
   res.json(businesses)
 }))
+// router.get("/", asyncHandler(async (req, res) => {
+//   const businesses = await Business.findAll()
+//   res.json(businesses)
+// }))
 
 router.post("/", asyncHandler(async (req, res) => {
   const { ownerId, businessName, description, picture, address, city, state, zipCode } = req.body;
@@ -28,17 +33,18 @@ router.post("/", asyncHandler(async (req, res) => {
   res.json(business)
 }))
 
-router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
-  const businessId = parseInt(req.params.id, 10)
-  const reviews = Review.findAll({
-    where: {
-      businessId: businessId
-    }
-  })
-  const business = await Business.findByPk(businessId, { include: Review })
+// router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+//   const businessId = parseInt(req.params.id, 10)
+//   // const reviews = Review.findAll({
+//   //   where: {
+//   //     businessId: businessId
+//   //   }
+//   // })
+//   // const business = await Business.findByPk(businessId, { include: "Review" })
+//   const business = await Business.findByPk(businessId)
 
-  res.json(business, reviews)
-}))
+//   res.json(business)
+// }))
 
 router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   const business = await Business.findByPk(req.params.id)
