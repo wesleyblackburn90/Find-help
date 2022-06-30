@@ -37,8 +37,13 @@ export const getAllReviews = data => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json()
+    const reviews = data.map((business) => business.Reviews)
+    console.log(data, "<== data")
+    console.log(reviews, "<== reviews")
+    console.log(data[0])
+    console.log(data[0].Reviews[0])
     console.log(data[0].Reviews[0].review)
-    dispatch(getReview(data))
+    dispatch(getReview(reviews))
     return data
   }
 }
