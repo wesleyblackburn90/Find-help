@@ -19,7 +19,9 @@ function IndividualBusiness() {
   }, [dispatch])
 
   function handleDelete() {
+    console.log(business.id, "<= business.id")
     dispatch(deleteBusinesses(business.id))
+    console.log("Hit this")
     history.push('/business')
   }
 

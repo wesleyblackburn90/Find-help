@@ -10,13 +10,8 @@ const router = express.Router();
 
 router.get("/", asyncHandler(async (req, res) => {
   const businesses = await Business.findAll({ include: Review })
-  console.log(businesses)
   res.json(businesses)
 }))
-// router.get("/", asyncHandler(async (req, res) => {
-//   const businesses = await Business.findAll()
-//   res.json(businesses)
-// }))
 
 router.post("/", asyncHandler(async (req, res) => {
   const { ownerId, businessName, description, picture, address, city, state, zipCode } = req.body;
@@ -33,18 +28,26 @@ router.post("/", asyncHandler(async (req, res) => {
   res.json(business)
 }))
 
-// router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
-//   const businessId = parseInt(req.params.id, 10)
-//   // const reviews = Review.findAll({
-//   //   where: {
-//   //     businessId: businessId
-//   //   }
-//   // })
-//   // const business = await Business.findByPk(businessId, { include: "Review" })
-//   const business = await Business.findByPk(businessId)
+router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const business = await Business.findByPk(req.params.id)
+  if (business) {
+    await business.destroy()
+    console.log(business)
+    res.status(200).json(business)
+  }
+}))
 
-//   res.json(business)
-// }))
+router.post("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const { userId, businessId, rating, review } = req.body
+  const newReview = await Review.create({
+    userId,
+    businessId,
+    rating,
+    review
+  })
+  res.json(newReview)
+}))
+
 
 router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   const business = await Business.findByPk(req.params.id)
@@ -57,23 +60,8 @@ router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   business.zipCode = req.body.zipCode
   await business.save()
 
-  // const businessId = parseInt(req.params.id, 10)
-  // const { userId, businessId, rating, review } = req.body
-  // const reviews = await Business.create({
-  //   userId,
-  //   businessId,
-  //   rating,
-  //   review
-  // })
   res.json(business)
 }))
 
-router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
-  const business = await Business.findByPk(req.params.id)
-  if (business) {
-    await business.destroy()
-    res.status(200).json(business)
-  }
-}))
 
 module.exports = router

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Business.associate = function (models) {
     // associations can be defined here
-    Business.hasMany(models.Review, { foreignKey: "businessId" })
+    Business.hasMany(models.Review, { foreignKey: "businessId", onDelete: "CASCADE", hooks: true })
     Business.belongsTo(models.User, { foreignKey: "ownerId" })
 
   };

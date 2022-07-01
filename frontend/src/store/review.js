@@ -1,29 +1,17 @@
 import { csrfFetch } from "./csrf"
 
-const GET_ALL_REVIEWS = '/business/getAllReviews'
-// const CREATE_REVIEW = '/business/createReview'
+// const GET_ALL_REVIEWS = '/business/getAllReviews'
+const CREATE_REVIEW = '/business/createReview'
 // // const UPDATE_BUSINESS = '/business/updateBusiness'
 // const DELETE_REVIEW = '/business/deleteReview'
 
 //action creator
-const getReview = (reviews) => {
+const createReviews = (review) => {
   return {
-    type: GET_ALL_REVIEWS,
-    reviews
+    type: CREATE_REVIEW,
+    review,
   }
 }
-// const createBusiness = (businesses) => {
-//   return {
-//     type: CREATE_BUSINESS,
-//     businesses
-//   }
-// }
-// const updateBusiness = (businesses) => {
-//   return {
-//     type: UPDATE_BUSINESS,
-//     businesses
-//   }
-// }
 // const deleteBusiness = (business) => {
 //   return {
 //     type: DELETE_BUSINESS,
@@ -31,48 +19,21 @@ const getReview = (reviews) => {
 //   }
 // }
 
-//thunk action creator
-export const getAllReviews = data => async (dispatch) => {
-  const response = await csrfFetch(`/api/business`)
 
-  if (response.ok) {
-    const data = await response.json()
-    const reviews = data.map((business) => business.Reviews)
-    console.log(data, "<== data")
-    console.log(reviews, "<== reviews")
-    console.log(data[0])
-    console.log(data[0].Reviews[0])
-    console.log(data[0].Reviews[0].review)
-    dispatch(getReview(reviews))
-    return data
-  }
+export const createReview = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/business/${data.businessId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+
+  const review = await response.json()
+  dispatch(createReviews(review))
+  return review
 }
 
-// export const createBusinesses = (data) => async (dispatch) => {
-//   const response = await csrfFetch("/api/business", {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify(data)
-//   })
-
-//   const business = await response.json()
-//   dispatch(createBusiness(business))
-//   return business
-// }
-
-// export const deleteBusinesses = (businessId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/business/${businessId}`, {
-//     method: 'delete',
-//   })
-
-//   if (response.ok) {
-//     const { deletedBusiness } = await response.json()
-//     dispatch(deleteBusiness(deletedBusiness))
-//     return deletedBusiness
-//   }
-// }
 
 //state object
 const initialState = {}
@@ -80,18 +41,17 @@ const initialState = {}
 //reducer
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_REVIEWS: {
-      const allReviews = {};
-      action.reviews.forEach((review) => (allReviews[review.id] = review));
-      return allReviews
+    case CREATE_REVIEW: {
+      console.log(state, "<== state")
+      console.log(action.review, "<===action.review")
+      console.log(action, "<=== action")
+      const newState = {
+        ...state,
+        [action.review.id]: action.review
+      };
+      console.log(newState, "<===newstate")
+      return newState
     }
-    // case CREATE_BUSINESS: {
-    //   const newState = {
-    //     ...state,
-    //     [action.businesses.id]: action.businesses
-    //   };
-    //   return newState
-    // }
     // case DELETE_BUSINESS: {
     //   const newState = { ...state }
     //   delete newState[action.business]

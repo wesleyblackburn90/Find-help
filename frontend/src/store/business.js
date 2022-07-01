@@ -75,9 +75,11 @@ export const editBusiness = data => async (dispatch) => {
 }
 
 export const deleteBusinesses = (businessId) => async (dispatch) => {
+  console.log(businessId, "<== business Id")
   const response = await csrfFetch(`/api/business/${businessId}`, {
     method: 'delete',
   })
+  console.log(response, "<== response")
 
   if (response.ok) {
     const { deletedBusiness } = await response.json()
