@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 // import { useParams } from "react-router-dom";
-import { createReview } from "../../store/review";
+import { createReview } from "../../store/business";
 import './review.css';
 
 function Review() {
@@ -32,7 +32,7 @@ function Review() {
     const createdReview = await dispatch(createReview(payload))
 
     if (createdReview) {
-      console.log(createdReview, "<== push plz")
+      console.log(reviews, "<===================")
       history.push(`/business/${businessId}`)
     }
   }
@@ -41,11 +41,13 @@ function Review() {
     <div className="review">
       {/* {reviews} */}
       {reviews?.map(({ id, rating, review }) => (
-        <div key={id} className="reviewCard">
-          <h1>{rating}</h1>
-          <h1>{review}</h1>
-          <button>Delete review</button>
-        </div>
+        <>
+          <div key={id} className="reviewCard">
+            <h1>{rating}</h1>
+            <h1>{review}</h1>
+            <button>Delete review</button>
+          </div>
+        </>
       ))}
       <button>Leave a review</button>
       <form onSubmit={handleSubmit}>

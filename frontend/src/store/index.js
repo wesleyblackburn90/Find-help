@@ -10,8 +10,7 @@ import reviewReducer from "./review";
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
-  business: businessReducer,
-  review: reviewReducer
+  business: businessReducer
 });
 
 let enhancer;

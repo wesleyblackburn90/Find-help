@@ -4,6 +4,8 @@ const GET_ALL_BUSINESSES = '/business/getAllBusinesses'
 const CREATE_BUSINESS = '/business/createBusiness'
 const UPDATE_BUSINESS = '/business/updateBusiness'
 const DELETE_BUSINESS = '/business/deleteBusiness'
+const CREATE_REVIEW = '/business/createReview'
+const DELETE_REVIEW = '/business/deleteReview'
 
 //action creator
 const getBusinesses = (businesses) => {
@@ -12,22 +14,39 @@ const getBusinesses = (businesses) => {
     businesses
   }
 }
+
 const createBusiness = (businesses) => {
   return {
     type: CREATE_BUSINESS,
     businesses
   }
 }
+
 const updateBusiness = (businesses) => {
   return {
     type: UPDATE_BUSINESS,
     businesses
   }
 }
+
 const deleteBusiness = (business) => {
   return {
     type: DELETE_BUSINESS,
     business
+  }
+}
+
+const createReviews = (review) => {
+  return {
+    type: CREATE_REVIEW,
+    review,
+  }
+}
+
+const deleteReviews = (review) => {
+  return {
+    type: DELETE_REVIEW,
+    review
   }
 }
 
@@ -88,6 +107,20 @@ export const deleteBusinesses = (businessId) => async (dispatch) => {
   }
 }
 
+export const createReview = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/business/${data.businessId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+
+  const review = await response.json()
+  dispatch(createReviews(review))
+  return review
+}
+
 //state object
 const initialState = {}
 
@@ -114,6 +147,18 @@ const businessReducer = (state = initialState, action) => {
     case DELETE_BUSINESS: {
       const newState = { ...state }
       delete newState[action.businessId]
+      return newState
+    }
+    case CREATE_REVIEW: {
+      const businessId = action.review.businessId
+      console.log(businessId, "<== business id")
+      console.log(state, "<== state")
+      console.log("*********************************************************")
+      console.log(state[businessId].Reviews)
+      const newState = JSON.parse(JSON.stringify(state))
+
+      newState[businessId].Reviews.push(action.review)
+      console.log(newState, "<===newstate")
       return newState
     }
     default:
