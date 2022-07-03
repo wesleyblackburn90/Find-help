@@ -21,6 +21,11 @@ function BusinessList() {
     setShowForm("show")
   }
 
+  const handleCancelClick = (e) => {
+    e.preventDefault()
+    setShowForm("show-form")
+  }
+
   return (
     <>
       <h1>Businesses for you</h1>
@@ -28,8 +33,8 @@ function BusinessList() {
         <div className="businesses">
           {businessList?.map(({ id, businessName, picture, description }) => (
             <div key={id} className="businessCard">
-              <NavLink to={`/business/${id}`} className="businessName" key={businessName}>{businessName}</NavLink>
               <img alt="A building" className="businessPic" src={picture}></img>
+              <NavLink to={`/business/${id}`} className="businessName" key={businessName}>{businessName}</NavLink>
               <p className="businessDescription">{description}</p>
             </div>
           ))}
@@ -39,6 +44,7 @@ function BusinessList() {
           <button onClick={handleClick}>Get started today</button>
           <div id={showForm}>
             <BusinessForm />
+            <button type="button" onClick={handleCancelClick}>Cancel</button>
           </div>
         </div>
       </div>

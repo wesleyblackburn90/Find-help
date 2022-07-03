@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { editBusiness, getAllBusinesses } from "../../store/business";
 
@@ -8,6 +8,9 @@ import { editBusiness, getAllBusinesses } from "../../store/business";
 const EditBusinessForm = ({ business }) => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const businesses = useSelector((state) => state.business)
+  const businessInfo = businesses[business.id]
+  const reviews = businessInfo.Reviews
   const [businessName, setBusinessName] = useState(business.businessName)
   const [description, setDescription] = useState(business.description)
   const [picture, setPicture] = useState(business.picture)
@@ -43,7 +46,7 @@ const EditBusinessForm = ({ business }) => {
     }
 
 
-    dispatch(editBusiness(payload))
+    dispatch(editBusiness(payload, reviews))
     history.push(`/business/${business.id}`)
   }
 

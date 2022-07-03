@@ -105,7 +105,6 @@ const BusinessForm = ({ hideForm }) => {
           value={zipcode}
           onChange={updateZipcode} />
         <button type="submit">Add a business</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
       </form>
 
     </section>

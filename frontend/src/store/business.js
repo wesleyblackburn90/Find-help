@@ -22,10 +22,10 @@ const createBusiness = (businesses) => {
   }
 }
 
-const updateBusiness = (businesses) => {
+const updateBusiness = (businesses, reviews) => {
   return {
     type: UPDATE_BUSINESS,
-    businesses
+    payload: { businesses, reviews }
   }
 }
 
@@ -75,7 +75,7 @@ export const createBusinesses = (data) => async (dispatch) => {
   return business
 }
 
-export const editBusiness = data => async (dispatch) => {
+export const editBusiness = (data, reviews) => async (dispatch) => {
   const response = await csrfFetch(`/api/business/${data.id}`, {
     method: 'put',
     headers: {
@@ -86,7 +86,9 @@ export const editBusiness = data => async (dispatch) => {
 
   if (response.ok) {
     const business = await response.json()
-    dispatch(updateBusiness(business))
+    console.log(business, "********")
+    dispatch(updateBusiness(business, reviews))
+    console.log(business, "&&&&&&&&&")
     return business
   }
 }
@@ -146,10 +148,13 @@ const businessReducer = (state = initialState, action) => {
       return { ...newState }
     }
     case UPDATE_BUSINESS:
-      return {
+      const reviews = action.payload.reviews
+      action.payload.businesses["Reviews"] = reviews
+      const newState = {
         ...state,
-        [action.businesses.id]: action.businesses
+        [action.payload.businesses.id]: action.payload.businesses
       }
+      return newState
     case DELETE_BUSINESS: {
       const newState = { ...state }
       delete newState[action.businessId]
