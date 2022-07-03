@@ -16,7 +16,7 @@ const BusinessForm = ({ hideForm }) => {
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [state, setstate] = useState("")
-  const [zipcode, setZipcode] = useState(0)
+  const [zipcode, setZipcode] = useState("ex. 32145")
 
   const updateBusinessName = (e) => setBusinessName(e.target.value)
   const updateDescription = (e) => setDescription(e.target.value)
@@ -51,52 +51,57 @@ const BusinessForm = ({ hideForm }) => {
 
     if (createdBusiness) {
       history.push("/business")
-      hideForm();
     }
   }
 
   const handleCancelClick = (e) => {
     e.preventDefault()
-    hideForm()
   }
 
   return (
     <section className="new-business-form">
       <form className="business-form" onSubmit={handleSubmit}>
         <input
+          className="form-input"
           type="text"
-          placeholder="BusinessName"
+          placeholder="Business Name"
           required
           value={businessName}
           onChange={updateBusinessName} />
         <input
+          className="form-input"
           type="text"
-          placeholder="description"
+          placeholder="Description"
           value={description}
           onChange={updateDescription} />
         <input
+          className="form-input"
           type="text"
-          placeholder="imageUrl"
+          placeholder="Image URL"
           value={picture}
           onChange={updatePicture} />
         <input
+          className="form-input"
           type="text"
-          placeholder="address"
+          placeholder="Address"
           value={address}
           onChange={updateAddress} />
         <input
+          className="form-input"
           type="text"
-          placeholder="city"
+          placeholder="City"
           value={city}
           onChange={updateCity} />
         <input
+          className="form-input"
           type="text"
-          placeholder="state"
+          placeholder="State"
           value={state}
           onChange={updateState} />
         <input
+          className="form-input"
           type="number"
-          placeholder="zipcode"
+          placeholder="Zipcode"
           value={zipcode}
           onChange={updateZipcode} />
         <button type="submit">Add a business</button>

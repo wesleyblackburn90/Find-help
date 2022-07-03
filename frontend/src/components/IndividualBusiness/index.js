@@ -19,9 +19,7 @@ function IndividualBusiness() {
   }, [dispatch])
 
   function handleDelete() {
-    console.log(business.id, "<= business.id")
     dispatch(deleteBusinesses(business.id))
-    console.log("Hit this")
     history.push('/business')
   }
 
@@ -33,6 +31,9 @@ function IndividualBusiness() {
           <h1>{business.businessName}</h1>
           <img alt="health facility" src={business.picture}></img>
           <p>{business.description}</p>
+          <p>{business.address}</p>
+          <p>{business.city}</p>
+          <p>{business.state}</p>
           <Review />
           <EditBusinessForm business={business} />
           <button onClick={handleDelete}>Delete business</button>

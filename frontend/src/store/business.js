@@ -43,10 +43,10 @@ const createReviews = (review) => {
   }
 }
 
-const deleteReviews = (review) => {
+const deleteReview = (review, businessId) => {
   return {
     type: DELETE_REVIEW,
-    review
+    payload: { review, businessId },
   }
 }
 
@@ -83,8 +83,6 @@ export const editBusiness = data => async (dispatch) => {
     },
     body: JSON.stringify(data)
   })
-  // console.log(data, "<=== data")
-  // console.log(response, "<=== response")
 
   if (response.ok) {
     const business = await response.json()
@@ -94,11 +92,9 @@ export const editBusiness = data => async (dispatch) => {
 }
 
 export const deleteBusinesses = (businessId) => async (dispatch) => {
-  console.log(businessId, "<== business Id")
   const response = await csrfFetch(`/api/business/${businessId}`, {
     method: 'delete',
   })
-  console.log(response, "<== response")
 
   if (response.ok) {
     const { deletedBusiness } = await response.json()
@@ -119,6 +115,16 @@ export const createReview = (data) => async (dispatch) => {
   const review = await response.json()
   dispatch(createReviews(review))
   return review
+}
+
+export const deleteReviews = (reviewId, businessId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/business/review/${reviewId}`, {
+    method: 'delete',
+  })
+
+  if (response.ok) {
+    dispatch(deleteReview(reviewId, businessId))
+  }
 }
 
 //state object
@@ -151,14 +157,15 @@ const businessReducer = (state = initialState, action) => {
     }
     case CREATE_REVIEW: {
       const businessId = action.review.businessId
-      console.log(businessId, "<== business id")
-      console.log(state, "<== state")
-      console.log("*********************************************************")
-      console.log(state[businessId].Reviews)
       const newState = JSON.parse(JSON.stringify(state))
-
       newState[businessId].Reviews.push(action.review)
-      console.log(newState, "<===newstate")
+      return newState
+    }
+    case DELETE_REVIEW: {
+      const reviewId = action.payload.review
+      const newState = { ...state }
+      const deleteIndex = newState[action.payload.businessId].Reviews.indexOf(newState[action.payload.businessId].Reviews.find(obj => obj.id === reviewId))
+      newState[action.payload.businessId].Reviews.splice(deleteIndex, 1)
       return newState
     }
     default:

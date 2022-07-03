@@ -1,13 +1,48 @@
 .businessCard {
-  width: 33%;
+  width: 400px;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .businessPic {
-  height: auto;
-  width: 33%;
+  height: 150px;
+  width: auto;
 }
 
 .businesses {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 1200px;
+}
+
+.businessDescription {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.businessName {
+  font-size: 20pt;
+  color: #111111;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.business-form-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 300px;
+  margin: 10px;
+}
+
+.business-div {
+  display: flex;
+}
+
+#show-form {
+  display: none;
 }

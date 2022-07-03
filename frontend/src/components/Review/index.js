@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 // import { useParams } from "react-router-dom";
-import { createReview } from "../../store/business";
+import { createReview, deleteReviews } from "../../store/business";
 import './review.css';
 
 function Review() {
@@ -11,7 +11,9 @@ function Review() {
   const history = useHistory()
   const { businessId } = useParams()
   const userId = useSelector((state) => state.session.user.id)
-  const reviews = useSelector((state) => state.business[businessId].Reviews)
+  const businesses = useSelector((state) => state.business)
+  const business = businesses[businessId]
+  const reviews = business.Reviews
 
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState("")
@@ -30,11 +32,14 @@ function Review() {
     }
 
     const createdReview = await dispatch(createReview(payload))
-
     if (createdReview) {
-      console.log(reviews, "<===================")
       history.push(`/business/${businessId}`)
     }
+  }
+
+  function handleDelete(id) {
+    dispatch(deleteReviews(id, businessId))
+    history.push(`/business/${businessId}`)
   }
 
   return (
@@ -43,9 +48,10 @@ function Review() {
       {reviews?.map(({ id, rating, review }) => (
         <>
           <div key={id} className="reviewCard">
+            <h1>{id}</h1>
             <h1>{rating}</h1>
             <h1>{review}</h1>
-            <button>Delete review</button>
+            <button onClick={(e) => { e.preventDefault(); handleDelete(id) }}>Delete review</button>
           </div>
         </>
       ))}

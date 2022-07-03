@@ -4,10 +4,10 @@ body {
 
 .header-bar {
   display: block;
-  height: 150px;
+  height: 100px;
 }
 
 #title {
-  height: 150px;
+  height: 100px;
   width: 200px;
 }

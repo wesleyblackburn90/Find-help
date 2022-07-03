@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react"
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { editBusiness, getAllBusinesses } from "../../store/business";
 
 
 const EditBusinessForm = ({ business }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [businessName, setBusinessName] = useState(business.businessName)
   const [description, setDescription] = useState(business.description)
   const [picture, setPicture] = useState(business.picture)
@@ -40,14 +42,9 @@ const EditBusinessForm = ({ business }) => {
       zipcode
     }
 
-    // let createdBusiness
-    // try {
-    //   createdBusiness = await dispatch(createBusinesses(payload))
-    // } catch (err) {
-    //   console.log(err)
-    // }
 
     dispatch(editBusiness(payload))
+    history.push(`/business/${business.id}`)
   }
 
   const handleCancelClick = (e) => {

@@ -63,5 +63,12 @@ router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   res.json(business)
 }))
 
+router.delete("/review/:id(\\d+)", asyncHandler(async (req, res) => {
+  const review = await Review.findByPk(req.params.id)
+  if (review) {
+    await review.destroy()
+    res.status(200).json(review)
+  }
+}))
 
 module.exports = router
