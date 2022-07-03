@@ -19,8 +19,10 @@ function IndividualBusiness() {
   }, [dispatch])
 
   function handleDelete() {
-    dispatch(deleteBusinesses(business.id))
-    history.push('/business')
+    const deletedBusiness = dispatch(deleteBusinesses(business.id))
+    if (deletedBusiness) {
+      history.push('/business')
+    }
   }
 
 

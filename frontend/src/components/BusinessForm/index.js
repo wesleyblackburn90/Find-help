@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createBusinesses } from "../../store/business";
+import "./BusinessForm.css"
 
 
 const BusinessForm = ({ hideForm }) => {
@@ -54,10 +55,6 @@ const BusinessForm = ({ hideForm }) => {
     }
   }
 
-  const handleCancelClick = (e) => {
-    e.preventDefault()
-  }
-
   return (
     <section className="new-business-form">
       <form className="business-form" onSubmit={handleSubmit}>
@@ -104,7 +101,7 @@ const BusinessForm = ({ hideForm }) => {
           placeholder="Zipcode"
           value={zipcode}
           onChange={updateZipcode} />
-        <button type="submit">Add a business</button>
+        <button type="submit" id="button">Add a business</button>
       </form>
 
     </section>

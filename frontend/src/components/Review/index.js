@@ -48,7 +48,6 @@ function Review() {
       {reviews?.map(({ id, rating, review }) => (
         <>
           <div key={id} className="reviewCard">
-            <h1>{id}</h1>
             <h1>{rating}</h1>
             <h1>{review}</h1>
             <button onClick={(e) => { e.preventDefault(); handleDelete(id) }}>Delete review</button>

@@ -35,8 +35,12 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 300px;
+  align-items: center;
+  width: 400px;
   margin: 10px;
+  border: 2px black solid;
+  border-radius: 15px;
+  background-color: rgb(146, 146, 236);
 }
 
 .business-div {
@@ -45,4 +49,24 @@
 
 #show-form {
   display: none;
+}
+
+#getStartedbutton {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: rgb(44, 8, 77);
+  color: rgb(146, 146, 236);
+  cursor: pointer
+}
+
+.business-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

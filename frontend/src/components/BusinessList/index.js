@@ -41,8 +41,8 @@ function BusinessList() {
         </div>
         <div className="business-form-div">
           <h1>Want to add YOUR business?</h1>
-          <button onClick={handleClick}>Get started today</button>
-          <div id={showForm}>
+          <button onClick={handleClick} id="getStartedbutton">Get started today</button>
+          <div id={showForm} className="business-form">
             <BusinessForm />
             <button type="button" onClick={handleCancelClick}>Cancel</button>
           </div>
