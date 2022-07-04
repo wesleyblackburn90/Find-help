@@ -10,7 +10,7 @@ function Review() {
   const dispatch = useDispatch()
   const history = useHistory()
   const { businessId } = useParams()
-  const userId = useSelector((state) => state.session.user.id)
+  const currentUserId = useSelector((state) => state.session.user.id)
   const businesses = useSelector((state) => state.business)
   const business = businesses[businessId]
   const reviews = business.Reviews
@@ -27,7 +27,7 @@ function Review() {
     e.preventDefault()
 
     const payload = {
-      userId: userId,
+      userId: currentUserId,
       businessId: businessId,
       rating,
       review
@@ -63,11 +63,11 @@ function Review() {
     <div className="review">
       {/* {reviews} */}
       {/* <p>User Ratings: {Math.round(reviewTotal)}</p> */}
-      {reviews?.map(({ id, rating, review }) => (
+      {reviews?.map(({ id, rating, review, userId }) => (
         <div key={id} className="reviewCard">
           <h1>Rating: {rating}</h1>
           <h1>{review}</h1>
-          <button onClick={(e) => { e.preventDefault(); handleDelete(id) }} id="deleteReviewButton">Delete review</button>
+          {userId === currentUserId ? <button onClick={(e) => { e.preventDefault(); handleDelete(id) }} id="deleteReviewButton">Delete review</button> : <></>}
         </div>
       ))}
       <button onClick={handleClick} className="reviewFormButton">Leave a review</button>
