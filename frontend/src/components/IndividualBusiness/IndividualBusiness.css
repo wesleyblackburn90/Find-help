@@ -1,0 +1,21 @@
+.individualBusiness {}
+
+.singleBusinessCard {
+  display: flex;
+  margin: 10px;
+}
+
+.individualBusinessPic {
+  width: 300px;
+  height: auto;
+  margin-right: 50px;
+  margin-left: 400px;
+}
+
+.address {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  font-size: 20pt;
+  font-weight: bold;
+}

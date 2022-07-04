@@ -1,0 +1,23 @@
+.hide-review-form {
+  display: none;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.review {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.reviewCard {
+  width: 500px;
+  height: auto;
+  border: 2px black solid;
+}

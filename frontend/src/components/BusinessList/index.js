@@ -33,7 +33,9 @@ function BusinessList() {
         <div className="businesses">
           {businessList?.map(({ id, businessName, picture, description }) => (
             <div key={id} className="businessCard">
-              <img alt="A building" className="businessPic" src={picture}></img>
+              <NavLink to={`/business/${id}`}>
+                <img alt="A building" className="businessPic" src={picture}></img>
+              </NavLink>
               <NavLink to={`/business/${id}`} className="businessName" key={businessName}>{businessName}</NavLink>
               <p className="businessDescription">{description}</p>
             </div>
@@ -44,7 +46,7 @@ function BusinessList() {
           <button onClick={handleClick} id="getStartedbutton">Get started today</button>
           <div id={showForm} className="business-form">
             <BusinessForm />
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <button type="button" id="cancelButton" onClick={handleCancelClick}>Cancel</button>
           </div>
         </div>
       </div>

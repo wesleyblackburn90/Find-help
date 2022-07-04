@@ -13,7 +13,7 @@ const BusinessForm = ({ hideForm }) => {
 
   const [businessName, setBusinessName] = useState("")
   const [description, setDescription] = useState("")
-  const [picture, setPicture] = useState("")
+  const [picture, setPicture] = useState("https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png")
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [state, setstate] = useState("")
@@ -101,7 +101,7 @@ const BusinessForm = ({ hideForm }) => {
           placeholder="Zipcode"
           value={zipcode}
           onChange={updateZipcode} />
-        <button type="submit" id="button">Add a business</button>
+        <button type="submit" id="businessSubmitButton">Add a business</button>
       </form>
 
     </section>

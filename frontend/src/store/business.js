@@ -86,9 +86,7 @@ export const editBusiness = (data, reviews) => async (dispatch) => {
 
   if (response.ok) {
     const business = await response.json()
-    console.log(business, "********")
     dispatch(updateBusiness(business, reviews))
-    console.log(business, "&&&&&&&&&")
     return business
   }
 }
@@ -99,7 +97,7 @@ export const deleteBusinesses = (businessId) => async (dispatch) => {
   })
 
   if (response.ok) {
-    const { deletedBusiness } = await response.json()
+    const deletedBusiness = await response.json()
     dispatch(deleteBusiness(deletedBusiness))
     return deletedBusiness
   }
@@ -157,6 +155,7 @@ const businessReducer = (state = initialState, action) => {
       return newState
     case DELETE_BUSINESS: {
       const newState = { ...state }
+      console.log(action.business)
       delete newState[action.businessId]
       return newState
     }

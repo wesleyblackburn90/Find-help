@@ -2,3 +2,14 @@
   margin: 2px;
   border-radius: 2px;
 }
+
+#businessSubmitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: rgb(44, 8, 77);
+  color: rgb(146, 146, 236);
+  cursor: pointer
+}
