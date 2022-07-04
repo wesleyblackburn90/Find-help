@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import * as sessionActions from '../../store/session'
@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
+  const history = useHistory()
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   let demoUser = null;
@@ -18,11 +19,12 @@ function Navigation({ isLoaded }) {
     const credential = "demoUser";
     const password = "password";
 
-    return dispatch(sessionActions.login({ credential, password }))
+    dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
         return data;
       });
+    history.push("/")
   }
 
   if (sessionUser) {
