@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import * as sessionActions from '../../store/session'
@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
-  const history = useHistory()
+  // const history = useHistory()
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   let demoUser = null;
@@ -16,15 +16,14 @@ function Navigation({ isLoaded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const credential = "demoUser";
+    const credential = 'Demo-lition';
     const password = "password";
 
-    await dispatch(sessionActions.login({ credential, password }))
+    return await dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
         return data;
       });
-    history.push("/")
   }
 
   if (sessionUser) {
@@ -63,6 +62,7 @@ function Navigation({ isLoaded }) {
       </>
     )
   }
+
 
   return (
     <ul>
