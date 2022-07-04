@@ -101,7 +101,7 @@ const BusinessForm = ({ hideForm }) => {
           placeholder="Zipcode"
           value={zipcode}
           onChange={updateZipcode} />
-        <button type="submit" id="businessSubmitButton">Add a business</button>
+        <button type="submit" id="businessSubmitButton">Add your business</button>
       </form>
 
     </section>

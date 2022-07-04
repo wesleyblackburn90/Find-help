@@ -155,8 +155,7 @@ const businessReducer = (state = initialState, action) => {
       return newState
     case DELETE_BUSINESS: {
       const newState = { ...state }
-      console.log(action.business)
-      delete newState[action.businessId]
+      delete newState[action.business.id]
       return newState
     }
     case CREATE_REVIEW: {

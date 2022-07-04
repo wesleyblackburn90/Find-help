@@ -15,7 +15,7 @@ function Review() {
   const business = businesses[businessId]
   const reviews = business.Reviews
 
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState("")
   const [review, setReview] = useState("")
   const [showReviewForm, setShowReviewForm] = useState("hide-review-form")
   // const [reviewTotal, setReviewTotal] = useState(0)
@@ -73,12 +73,13 @@ function Review() {
       <button onClick={handleClick} className="reviewFormButton">Leave a review</button>
       <div className={showReviewForm}>
         <form onSubmit={handleSubmit} id="leaveReviewInputs">
-          <input
-            type="number"
-            placeholder="Rating"
-            required
-            value={rating}
-            onChange={updateRating} />
+          <select onChange={updateRating}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
           <input
             id="reviewBody"
             type="text"
