@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { editBusiness, getAllBusinesses } from "../../store/business";
+import "./editBusinessForm.css"
 
 
 const EditBusinessForm = ({ business }) => {
@@ -50,51 +51,53 @@ const EditBusinessForm = ({ business }) => {
     history.push(`/business/${business.id}`)
   }
 
-  const handleCancelClick = (e) => {
-    e.preventDefault()
-    // hideForm()
-  }
-
   return (
     <section className="edit-business-form">
-      <form className="business-form" onSubmit={handleSubmit}>
+      <form className="update-business-form" onSubmit={handleSubmit}>
         <input
+          className="editFormInput"
           type="text"
           placeholder="BusinessName"
           required
           value={businessName}
           onChange={updateBusinessName} />
         <input
+          className="editFormInput"
           type="text"
           placeholder="description"
           value={description}
           onChange={updateDescription} />
         <input
+          className="editFormInput"
           type="text"
           placeholder="imageUrl"
           value={picture}
           onChange={updatePicture} />
         <input
+          className="editFormInput"
           type="text"
           placeholder="address"
           value={address}
           onChange={updateAddress} />
         <input
+          className="editFormInput"
           type="text"
           placeholder="city"
           value={city}
           onChange={updateCity} />
         <input
+          className="editFormInput"
           type="text"
           placeholder="state"
           value={state}
           onChange={updateState} />
         <input
+          className="editFormInput"
           type="number"
           placeholder="zipcode"
           value={zipcode}
           onChange={updateZipcode} />
-        <button type="submit" id="button">Update your business</button>
+        <button type="submit" id="updateButton">Update your business</button>
         {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
 

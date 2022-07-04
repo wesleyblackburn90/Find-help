@@ -12,6 +12,11 @@ function IndividualBusiness() {
   const dispatch = useDispatch();
   const { businessId } = useParams()
   const business = useSelector((state) => (state.business[businessId]))
+  const user = useSelector((state) => state.session.user)
+
+  let owner;
+
+
 
 
   useEffect(() => {
@@ -20,19 +25,35 @@ function IndividualBusiness() {
 
   const handleDelete = async () => {
     await dispatch(deleteBusinesses(business.id)).then(history.push('/business'))
-
-    // if (deletedBusiness) {
-    //   history.push('/business')
-    // }
   }
 
+  if (user.id === business.ownerId) {
+    owner = (
+      <>
+        <EditBusinessForm business={business} />
+        <div>
+          <p id="deleteWarning"> WARNING! CLICKING THIS BUTTON WILL DELETE ALL OF THE INFORMATION FOR YOUR BUSINESS. ARE YOU SURE YOU WANT TO PROCEED?</p>
+          <button onClick={handleDelete} id="deleteBusinessButton">Delete business</button>
+        </div>
+      </>
+    )
+  }
+  else {
+    owner = (
+      <>
+        <h2>If this is your business, log in to edit!</h2>
+      </>
+    )
+  }
 
   return (
     <>
       {(business) ?
         <div className="individualBusiness">
-          <h1>{business.businessName}</h1>
-          <p>{business.description}</p>
+          <div id="individualBusinessTitle">
+            <h1>{business.businessName}</h1>
+            <p>{business.description}</p>
+          </div>
           <div className="singleBusinessCard">
             <img alt="health facility" src={business.picture} className="individualBusinessPic"></img>
             <div className="address">
@@ -42,8 +63,7 @@ function IndividualBusiness() {
             </div>
           </div>
           <Review />
-          <EditBusinessForm business={business} />
-          <button onClick={handleDelete}>Delete business</button>
+          {owner}
         </div>
         : null
       }

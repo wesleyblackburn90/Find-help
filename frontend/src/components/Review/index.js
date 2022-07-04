@@ -18,7 +18,7 @@ function Review() {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState("")
   const [showReviewForm, setShowReviewForm] = useState("hide-review-form")
-  const [reviewTotal, setReviewTotal] = useState(0)
+  // const [reviewTotal, setReviewTotal] = useState(0)
 
   const updateRating = (e) => setRating(e.target.value)
   const updateReview = (e) => setReview(e.target.value)
@@ -35,11 +35,10 @@ function Review() {
 
     const createdReview = await dispatch(createReview(payload))
     if (createdReview) {
-      console.log(reviews)
-      let reviewNums = reviews.map(obj => obj.rating)
-      console.log(reviewNums)
-      setReviewTotal((reviewNums.reduce((a, b) => a + b)) / (reviewNums.length))
-      console.log(reviewTotal)
+      // console.log(createdReview)
+      // let reviewNums = reviews.map(obj => obj.rating)
+      // setReviewTotal((reviewNums.reduce((a, b) => a + b, 0) + (createdReview.rating)) / (reviewNums.length))
+      setShowReviewForm("hide-review-form")
       history.push(`/business/${businessId}`)
     }
   }
@@ -63,30 +62,31 @@ function Review() {
   return (
     <div className="review">
       {/* {reviews} */}
-      <p>{Math.round(reviewTotal)}</p>
+      {/* <p>User Ratings: {Math.round(reviewTotal)}</p> */}
       {reviews?.map(({ id, rating, review }) => (
         <div key={id} className="reviewCard">
-          <h1>{rating}</h1>
+          <h1>Rating: {rating}</h1>
           <h1>{review}</h1>
-          <button onClick={(e) => { e.preventDefault(); handleDelete(id) }}>Delete review</button>
+          <button onClick={(e) => { e.preventDefault(); handleDelete(id) }} id="deleteReviewButton">Delete review</button>
         </div>
       ))}
-      <button onClick={handleClick}>Leave a review</button>
+      <button onClick={handleClick} className="reviewFormButton">Leave a review</button>
       <div className={showReviewForm}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="leaveReviewInputs">
           <input
             type="number"
-            placeholder="rating"
+            placeholder="Rating"
             required
             value={rating}
             onChange={updateRating} />
           <input
+            id="reviewBody"
             type="text"
-            placeholder="review"
+            placeholder="Review"
             value={review}
             onChange={updateReview} />
-          <button type="submit">Submit review</button>
-          <button onClick={handleCancelClick}>Cancel</button>
+          <button type="submit" className="reviewFormButton">Submit review</button>
+          <button onClick={handleCancelClick} className="reviewFormButton">Cancel</button>
         </form>
       </div>
     </div>

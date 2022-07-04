@@ -1,0 +1,33 @@
+.update-business-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1000px;
+  border: 2px black solid;
+  background-color: white;
+}
+
+.edit-business-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.editFormInput {
+  border-radius: 2px;
+  margin: 20px;
+  padding: 3px;
+}
+
+#updateButton {
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  text-decoration: none;
+}
