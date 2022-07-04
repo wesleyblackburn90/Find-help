@@ -27,6 +27,39 @@ li {
   text-decoration: none;
 }
 
+#loginButton {
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  text-decoration: none;
+}
+
+#signUpButton {
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  text-decoration: none;
+}
+
+#demoButton {
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  text-decoration: none;
+}
+
 #title {
   height: 60px;
   width: 250px;

@@ -1,0 +1,23 @@
+#loginFormDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginForm {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  flex-direction: column;
+}
+
+#loginFormButton {
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 100px;
+  text-decoration: none;
+}

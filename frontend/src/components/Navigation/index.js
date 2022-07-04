@@ -2,25 +2,64 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import * as sessionActions from '../../store/session'
+import { useDispatch } from 'react-redux';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-
+  const dispatch = useDispatch()
+  let demoUser = null;
   let sessionLinks;
+  let browse;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const credential = "demoUser";
+    const password = "password";
+
+    return dispatch(sessionActions.login({ credential, password }))
+      .catch(async (res) => {
+        const data = await res.json();
+        return data;
+      });
+  }
+
   if (sessionUser) {
     sessionLinks = (
       <>
         <ProfileButton user={sessionUser} />
       </>
     );
+    browse = (
+      <>
+        <NavLink to="/business" id="browse-button">Browse</NavLink>
+      </>
+    )
+  } else if (demoUser) {
+    sessionLinks = (
+      <>
+        <ProfileButton user={sessionUser} />
+      </>
+    );
+    browse = (
+      <>
+        <NavLink to="/business" id="browse-button">Browse</NavLink>
+      </>
+    )
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/login" id="loginButton">Log In</NavLink>
+        <NavLink to="/signup" id="signUpButton">Sign Up</NavLink>
+        <button onClick={handleSubmit} id="demoButton">Demo</button>
       </>
     );
+    browse = (
+      <>
+        <p>Log in or click Demo to start browsing!</p>
+      </>
+    )
   }
 
   return (
@@ -34,7 +73,7 @@ function Navigation({ isLoaded }) {
       </li>
       <div id="browse">
         <h1>Let's get started!</h1>
-        <NavLink to="/business" id="browse-button">Browse</NavLink>
+        {browse}
       </div>
     </ul>
   );
