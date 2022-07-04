@@ -10,6 +10,7 @@ function BusinessList() {
   const dispatch = useDispatch();
   const businessList = useSelector((state) => Object.values(state.business))
 
+
   const [showForm, setShowForm] = useState("show-form")
 
   useEffect(() => {

@@ -14,12 +14,12 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   let browse;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const credential = "demoUser";
     const password = "password";
 
-    dispatch(sessionActions.login({ credential, password }))
+    await dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
         return data;
