@@ -50,16 +50,20 @@ function IndividualBusiness() {
     <>
       {(business) ?
         <div className="individualBusiness">
-          <div id="individualBusinessTitle">
-            <h1>{business.businessName}</h1>
-            <p>{business.description}</p>
+          <div id="business-title-bar">
+            <div id="individualBusinessTitle">
+              <h1>{business.businessName}</h1>
+              <p>{business.description}</p>
+            </div>
           </div>
-          <div className="singleBusinessCard">
-            <img alt="health facility" src={business.picture} className="individualBusinessPic"></img>
-            <div className="address">
-              <p>{business.address}</p>
-              <p>{business.city}</p>
-              <p>{business.state}</p>
+          <div id="businessCardHolder">
+            <div className="singleBusinessCard">
+              <img alt="health facility" src={business.picture} className="individualBusinessPic"></img>
+              <div className="address">
+                <p>{business.address}</p>
+                <p>{business.city}</p>
+                <p>{business.state}</p>
+              </div>
             </div>
           </div>
           <Review />

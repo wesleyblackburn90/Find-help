@@ -1,13 +1,30 @@
 .singleBusinessCard {
   display: flex;
+  justify-content: center;
+  border: 2px black solid;
+  background-color: white;
   margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 600px;
 }
 
 .individualBusinessPic {
   width: 300px;
   height: auto;
   margin-right: 50px;
-  margin-left: 400px;
+}
+
+#businessCardHolder {
+  display: flex;
+  justify-content: center;
+}
+
+#business-title-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .address {
@@ -19,11 +36,18 @@
 }
 
 #individualBusinessTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-left: 50px;
-}
-
-h2 {
-  margin-left: 50px;
+  border: 1px black solid;
+  margin: 10px;
+  padding: 5px;
+  background-color: #ff0048;
+  color: whitesmoke;
+  border-radius: 10px;
+  width: 300px;
 }
 
 #deleteBusinessButton {
