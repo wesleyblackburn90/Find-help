@@ -13,7 +13,7 @@ const validateBusiness = [
   check('businessName')
     .exists({ checkFalsy: true })
     .withMessage('Please give your business a name')
-    .isLength({ max: 30 }).withMessage('Your business name can not be longer than 30 characters.'),
+    .isLength({ max: 30 }).withMessage('Your business name can not be longer than 50 characters.'),
   check('description')
     .exists({ checkFalsy: true }).withMessage('Please leave a short description')
     .isLength({ min: 4 }).withMessage('Please make your description longer than 4 characters.'),
@@ -26,7 +26,8 @@ const validateBusiness = [
     .withMessage("Please enter a valid city"),
   check('state')
     .exists({ checkFalsy: true })
-    .withMessage("Please enter a valid state"),
+    .withMessage("Please enter a valid state")
+    .isLength({ max: 15 }).withMessage("State name is too long"),
   check('zipcode')
     .exists({ checkFalsy: true })
     .isLength({ min: 5, max: 5 })
