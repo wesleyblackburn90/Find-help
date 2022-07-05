@@ -13,7 +13,7 @@ const validateBusiness = [
   check('businessName')
     .exists({ checkFalsy: true })
     .withMessage('Please give your business a name')
-    .isLength({ max: 30 }).withMessage('Your business name can not be longer than 50 characters.'),
+    .isLength({ max: 30 }).isLength({ min: 3 }).withMessage('Your business name must be between 3 and 30 characters.'),
   check('description')
     .exists({ checkFalsy: true }).withMessage('Please leave a short description')
     .isLength({ min: 4 }).withMessage('Please make your description longer than 4 characters.'),
