@@ -82,7 +82,7 @@ router.post("/:id(\\d+)", asyncHandler(async (req, res) => {
 }))
 
 
-router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
+router.put("/:id(\\d+)", validateBusiness, asyncHandler(async (req, res) => {
   const business = await Business.findByPk(req.params.id)
   business.businessName = req.body.businessName
   business.description = req.body.description
@@ -91,6 +91,15 @@ router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   business.city = req.body.city
   business.state = req.body.state
   business.zipCode = req.body.zipCode
+
+  if (!business) {
+    const err = new Error('Login failed');
+    err.status = 401;
+    err.title = 'Login failed';
+    err.errors = ['The provided credentials were invalid.'];
+    return next(err);
+  }
+
   await business.save()
 
   res.json(business)

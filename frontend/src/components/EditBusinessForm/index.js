@@ -19,6 +19,7 @@ const EditBusinessForm = ({ business }) => {
   const [city, setCity] = useState(business.city)
   const [state, setstate] = useState(business.state)
   const [zipcode, setZipcode] = useState(business.zipcode)
+  const [errors, setErrors] = useState([])
 
   const updateBusinessName = (e) => setBusinessName(e.target.value)
   const updateDescription = (e) => setDescription(e.target.value)
@@ -32,7 +33,7 @@ const EditBusinessForm = ({ business }) => {
     dispatch(getAllBusinesses())
   }, [dispatch])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const payload = {
@@ -46,14 +47,27 @@ const EditBusinessForm = ({ business }) => {
       zipcode
     }
 
+    setErrors([])
 
-    dispatch(editBusiness(payload, reviews))
-    history.push(`/business/${business.id}`)
+    try {
+      await dispatch(editBusiness(payload, reviews))
+      history.push(`/business/${business.id}`)
+    } catch {
+      return dispatch(editBusiness(payload, reviews)).catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.errors) setErrors(data.errors);
+      })
+    }
   }
 
   return (
     <section className="edit-business-form">
       <form className="update-business-form" onSubmit={handleSubmit}>
+        <ul>
+          {errors.map((error, idx) => <li key={idx} className="errorList"> • {error}</li>)}
+        </ul>
+        <h3>Business Name:</h3>
         <input
           className="editFormInput"
           type="text"
@@ -61,36 +75,42 @@ const EditBusinessForm = ({ business }) => {
           required
           value={businessName}
           onChange={updateBusinessName} />
+        <h3>Description:</h3>
         <input
           className="editFormInput"
           type="text"
           placeholder="description"
           value={description}
           onChange={updateDescription} />
+        <h3>Image Url:</h3>
         <input
           className="editFormInput"
           type="text"
           placeholder="imageUrl"
           value={picture}
           onChange={updatePicture} />
+        <h3>Address:</h3>
         <input
           className="editFormInput"
           type="text"
           placeholder="address"
           value={address}
           onChange={updateAddress} />
+        <h3>City:</h3>
         <input
           className="editFormInput"
           type="text"
           placeholder="city"
           value={city}
           onChange={updateCity} />
+        <h3>State:</h3>
         <input
           className="editFormInput"
           type="text"
           placeholder="state"
           value={state}
           onChange={updateState} />
+        <h3>Zip code:</h3>
         <input
           className="editFormInput"
           type="number"
