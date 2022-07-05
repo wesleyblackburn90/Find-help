@@ -15,7 +15,7 @@ function Review() {
   const business = businesses[businessId]
   const reviews = business.Reviews
 
-  const [rating, setRating] = useState("")
+  const [rating, setRating] = useState("1")
   const [review, setReview] = useState("")
   const [showReviewForm, setShowReviewForm] = useState("hide-review-form")
   // const [reviewTotal, setReviewTotal] = useState(0)
@@ -33,14 +33,12 @@ function Review() {
       review
     }
 
-    const createdReview = await dispatch(createReview(payload))
-    if (createdReview) {
-      // console.log(createdReview)
-      // let reviewNums = reviews.map(obj => obj.rating)
-      // setReviewTotal((reviewNums.reduce((a, b) => a + b, 0) + (createdReview.rating)) / (reviewNums.length))
-      setShowReviewForm("hide-review-form")
-      history.push(`/business/${businessId}`)
-    }
+    dispatch(createReview(payload))
+    // console.log(createdReview)
+    // let reviewNums = reviews.map(obj => obj.rating)
+    // setReviewTotal((reviewNums.reduce((a, b) => a + b, 0) + (createdReview.rating)) / (reviewNums.length))
+    setShowReviewForm("hide-review-form")
+    history.push(`/business/${businessId}`)
   }
 
   function handleDelete(id) {
@@ -61,7 +59,7 @@ function Review() {
 
   return (
     <div className="review">
-      <div id="listOfReviews">
+      <div>
         {reviews?.map(({ id, rating, review, userId }) => (
           <div key={id} className="reviewCard">
             <h1>Rating: {rating}</h1>

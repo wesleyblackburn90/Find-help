@@ -104,6 +104,7 @@ export const deleteBusinesses = (businessId) => async (dispatch) => {
 }
 
 export const createReview = (data) => async (dispatch) => {
+  console.log(data, "<=== data")
   const response = await csrfFetch(`/api/business/${data.businessId}`, {
     method: "post",
     headers: {
@@ -112,7 +113,10 @@ export const createReview = (data) => async (dispatch) => {
     body: JSON.stringify(data)
   })
 
+  console.log(response, "<=== response")
+
   const review = await response.json()
+  console.log(review)
   dispatch(createReviews(review))
   return review
 }
