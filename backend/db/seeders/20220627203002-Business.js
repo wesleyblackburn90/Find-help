@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         ownerId: 3,
-        businessName: "Compton Pediatrist",
+        businessName: "Compton Podiatrist",
         description: "We'll make your feet beautiful!",
         picture: "https://www.cmautah.com/wp-content/uploads/2018/05/Utah-Healthcare-Architecture-MOB-Riverton-Medical-Office-Building-768x465.jpg",
         address: "5439 Foot Ln",
