@@ -41,7 +41,7 @@ Once logged in, you have access to all businesses! Navigate to a business that i
 On the page of the business, feel free to leave a review. If the business is yours, you can update and even delete your business page.
 ![individual business](https://user-images.githubusercontent.com/98054974/177251340-a28ec46c-489d-4f42-8fb5-55990693d021.PNG)
 
-#Future features
+# Future features
 
 - Adding more functionality, location, etc
 - Making the CSS more smooth
