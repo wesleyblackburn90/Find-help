@@ -27,7 +27,8 @@ function IndividualBusiness() {
     await dispatch(deleteBusinesses(business.id)).then(history.push('/business'))
   }
 
-  if (user.id === business.ownerId) {
+  if (business && user.id === business.ownerId) {
+    console.log(business.ownerId)
     owner = (
       <>
         <EditBusinessForm business={business} />
