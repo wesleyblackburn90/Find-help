@@ -12,13 +12,15 @@ const { handleValidationErrors } = require('../../utils/validation');
 const validateBusiness = [
   check('businessName')
     .exists({ checkFalsy: true })
-    .withMessage('Please give your business a name'),
+    .withMessage('Please give your business a name')
+    .isLength({ max: 30 }).withMessage('Your business name can not be longer than 30 characters.'),
   check('description')
-    .exists({ checkFalsy: true })
-    .withMessage('Please leave a short description'),
+    .exists({ checkFalsy: true }).withMessage('Please leave a short description')
+    .isLength({ min: 4 }).withMessage('Please make your description longer than 4 characters.'),
   check('address')
     .exists({ checkFalsy: true })
-    .withMessage("Please enter a valid address"),
+    .withMessage("Please enter a valid address")
+    .isLength({ min: 4 }).withMessage('Please make your address longer than 4 characters.'),
   check('city')
     .exists({ checkFalsy: true })
     .withMessage("Please enter a valid city"),
