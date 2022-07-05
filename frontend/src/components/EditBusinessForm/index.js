@@ -118,7 +118,6 @@ const EditBusinessForm = ({ business }) => {
           value={zipcode}
           onChange={updateZipcode} />
         <button type="submit" id="updateButton">Update your business</button>
-        {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
 
     </section>

@@ -4,7 +4,6 @@ import thunk from "redux-thunk";
 import * as sessionActions from './session';
 import sessionReducer from "./session";
 import businessReducer from "./business";
-import reviewReducer from "./review";
 
 
 const rootReducer = combineReducers({
