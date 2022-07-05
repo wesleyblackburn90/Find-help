@@ -1,5 +1,9 @@
+h1 {
+  justify-content: center;
+}
+
 .businessCard {
-  width: 400px;
+  width: 380px;
   height: auto;
   display: flex;
   justify-content: center;
@@ -41,11 +45,11 @@
   flex-direction: column;
   align-items: center;
   width: 300px;
-  height: 500px;
+  height: 650px;
   margin: 10px;
   border: 2px black solid;
   border-radius: 15px;
-  background-color: rgb(146, 146, 236);
+  background-color: white;
 }
 
 .business-div {
@@ -66,8 +70,8 @@
   align-items: center;
   font-weight: bold;
   border-radius: 10px;
-  background-color: rgb(44, 8, 77);
-  color: rgb(146, 146, 236);
+  background-color: #ff0048;
+  color: white;
   cursor: pointer
 }
 
@@ -84,7 +88,7 @@
   align-items: center;
   font-weight: bold;
   border-radius: 10px;
-  background-color: rgb(44, 8, 77);
-  color: rgb(146, 146, 236);
+  background-color: #ff0048;
+  color: white;
   cursor: pointer
 }

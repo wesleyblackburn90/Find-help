@@ -1,19 +1,43 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
+const { check } = require('express-validator');
 
 // const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { Business, Review } = require('../../db/models');
 const router = express.Router();
 
 // const { check } = require('express-validator');
-// const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors } = require('../../utils/validation');
+
+const validateBusiness = [
+  check('businessName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please give your business a name'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Please leave a short description'),
+  check('address')
+    .exists({ checkFalsy: true })
+    .withMessage("Please enter a valid address"),
+  check('city')
+    .exists({ checkFalsy: true })
+    .withMessage("Please enter a valid city"),
+  check('state')
+    .exists({ checkFalsy: true })
+    .withMessage("Please enter a valid state"),
+  check('zipcode')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5, max: 5 })
+    .withMessage("Please enter your 5 digit zip code"),
+  handleValidationErrors
+]
 
 router.get("/", asyncHandler(async (req, res) => {
   const businesses = await Business.findAll({ include: Review })
   res.json(businesses)
 }))
 
-router.post("/", asyncHandler(async (req, res) => {
+router.post("/", validateBusiness, asyncHandler(async (req, res) => {
   const { ownerId, businessName, description, picture, address, city, state, zipCode } = req.body;
   const business = await Business.create({
     ownerId,
@@ -25,6 +49,15 @@ router.post("/", asyncHandler(async (req, res) => {
     state,
     zipCode
   })
+
+  if (!business) {
+    const err = new Error('Login failed');
+    err.status = 401;
+    err.title = 'Login failed';
+    err.errors = ['The provided credentials were invalid.'];
+    return next(err);
+  }
+
   res.json(business)
 }))
 

@@ -13,11 +13,12 @@ const BusinessForm = ({ hideForm }) => {
 
   const [businessName, setBusinessName] = useState("")
   const [description, setDescription] = useState("")
-  const [picture, setPicture] = useState("https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png")
+  const [picture, setPicture] = useState("")
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [state, setstate] = useState("")
   const [zipcode, setZipcode] = useState("ex. 32145")
+  const [errors, setErrors] = useState([])
 
   const updateBusinessName = (e) => setBusinessName(e.target.value)
   const updateDescription = (e) => setDescription(e.target.value)
@@ -41,23 +42,27 @@ const BusinessForm = ({ hideForm }) => {
       zipcode
     }
 
-    // let createdBusiness
-    // try {
-    //   createdBusiness = await dispatch(createBusinesses(payload))
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    setErrors([]);
 
-    const createdBusiness = await dispatch(createBusinesses(payload))
 
-    if (createdBusiness) {
+    try {
+      await dispatch(createBusinesses(payload))
       history.push("/business")
+    } catch {
+      return dispatch(createBusinesses(payload)).catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.errors) setErrors(data.errors);
+      })
     }
   }
 
   return (
     <section className="new-business-form">
       <form className="business-form" onSubmit={handleSubmit}>
+        <ul>
+          {errors.map((error, idx) => <li key={idx} className="errorList"> • {error}</li>)}
+        </ul>
         <input
           className="form-input"
           type="text"

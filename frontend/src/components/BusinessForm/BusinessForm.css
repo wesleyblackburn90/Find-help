@@ -9,7 +9,14 @@
   align-items: center;
   font-weight: bold;
   border-radius: 10px;
-  background-color: rgb(44, 8, 77);
-  color: rgb(146, 146, 236);
+  background-color: #ff0048;
+  color: white;
   cursor: pointer
+}
+
+.errorList {
+  display: flex;
+  /* align-items: center; */
+  justify-content: flex-start;
+  flex-direction: column;
 }

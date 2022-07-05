@@ -61,34 +61,40 @@ function Review() {
 
   return (
     <div className="review">
+      <div id="listOfReviews">
+        {reviews?.map(({ id, rating, review, userId }) => (
+          <div key={id} className="reviewCard">
+            <h1>Rating: {rating}</h1>
+            <h1>{review}</h1>
+            {userId === currentUserId ? <button onClick={(e) => { e.preventDefault(); handleDelete(id) }} id="deleteReviewButton">Delete review</button> : <></>}
+          </div>
+        ))}
+      </div>
       {/* {reviews} */}
       {/* <p>User Ratings: {Math.round(reviewTotal)}</p> */}
-      {reviews?.map(({ id, rating, review, userId }) => (
-        <div key={id} className="reviewCard">
-          <h1>Rating: {rating}</h1>
-          <h1>{review}</h1>
-          {userId === currentUserId ? <button onClick={(e) => { e.preventDefault(); handleDelete(id) }} id="deleteReviewButton">Delete review</button> : <></>}
+      <div id="reviewForm">
+        <button onClick={handleClick} className="reviewFormButton">Leave a review</button>
+        <div className={showReviewForm}>
+          <form onSubmit={handleSubmit} id="leaveReviewInputs">
+            <h3> Rating </h3>
+            <select onChange={updateRating}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <h3> Review </h3>
+            <input
+              id="reviewBody"
+              type="text"
+              placeholder="Leave your review"
+              value={review}
+              onChange={updateReview} />
+            <button type="submit" className="reviewFormButton">Submit review</button>
+            <button onClick={handleCancelClick} className="reviewFormButton">Cancel</button>
+          </form>
         </div>
-      ))}
-      <button onClick={handleClick} className="reviewFormButton">Leave a review</button>
-      <div className={showReviewForm}>
-        <form onSubmit={handleSubmit} id="leaveReviewInputs">
-          <select onChange={updateRating}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <input
-            id="reviewBody"
-            type="text"
-            placeholder="Review"
-            value={review}
-            onChange={updateReview} />
-          <button type="submit" className="reviewFormButton">Submit review</button>
-          <button onClick={handleCancelClick} className="reviewFormButton">Cancel</button>
-        </form>
       </div>
     </div>
   )
