@@ -18,8 +18,6 @@ Find-help is an application loosely based on Yelp where users can find the help 
 
 ## [Database schema](https://github.com/wesleyblackburn90/Find-help/wiki/Database-schema)
 
-## [Store](https://github.com/wesleyblackburn90/Find-help/wiki/Store)
-
 ## How to use this application
 
 - Clone this repo into your own folder
